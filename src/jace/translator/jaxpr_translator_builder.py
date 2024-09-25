@@ -344,6 +344,7 @@ class JaxprTranslationBuilder:
         storage: dace.StorageType = dace.StorageType.Default  # Set at later stages (optimization)
         offset = None
         as_transient = True
+        # TODO(phimuell): On GPU we should use by default col major as cuBLAS uses that.
         strides = None
 
         # Propose a name and if needed extend it.

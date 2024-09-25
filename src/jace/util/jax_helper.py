@@ -188,7 +188,12 @@ def translate_dtype(dtype: Any) -> dace.typeclass:
         return dace.typeclass(dtype)
     except (NameError, KeyError):
         pass
-    return dace.dtype_to_typeclass(getattr(dtype, "type", dtype))
+    try:
+        return dace.dtype_to_typeclass(getattr(dtype, "type", dtype))
+    except KeyError:
+        raise TypeError(
+            f"Failed to translate '{dtype}' into a 'dace.typeclass' instance."
+        ) from None
 
 
 def propose_jax_name(
